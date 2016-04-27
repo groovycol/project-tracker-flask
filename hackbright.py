@@ -79,6 +79,20 @@ def get_grade_by_github_title(github, title):
     print "Name: %s %s\nProject: %s \nGrade: %s" % (row[0], row[1], row[2], row[3])
 
 
+def get_grades_by_github(github):
+    """Get a list of all grades for a student by their github username"""
+    QUERY = """
+        SELECT project_title, grade
+        FROM Grades
+        WHERE student_github = :github
+        """
+    db_cursor = db.session.execute(QUERY, {'github': github})
+    rows = db_cursor.fetchall()
+    for row in rows:
+        print "Student %s received grade of %s for project %s" % (
+            github, row[1], row[0])
+    return rows
+
 
 def assign_grade(github, title, grade):
     """Assign a student a grade on an assignment and print a confirmation."""
