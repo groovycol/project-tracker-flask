@@ -19,17 +19,25 @@ def get_student():
     return html
 
 
-@app.route("/student_search")
+@app.route("/student-search")
 def get_student_form():
     """Show form for searching for a student."""
 
     return render_template("student_search.html")
 
 
-@app.route("/student-add", methods=['POST'])
+@app.route("/newstudent")
+def new_student():
+    """Show a form for adding a new student"""
+
+    return render_template("add_student.html")
+
+
+@app.route("/studentadd", methods=["POST"])
 def student_add():
     """Add a student to the database"""
 
+    print "I am here!"
     first = request.form.get('fname')
     last  = request.form.get('lname')
     github = request.form.get('github')
